@@ -4,7 +4,7 @@
 int main()
 {
     char buffer[] = "hola";
-    write(1, buffer, strlen(buffer));
+    write(STDOUT_FILENO, buffer, strlen(buffer));
 
     return 0;
 }
