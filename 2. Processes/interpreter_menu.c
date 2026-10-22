@@ -21,7 +21,7 @@ void run_interpreter(const char *path, const char *arg) {
 
         // If execl returns, it means an error occurred
         perror("execl failed");
-        exit(EXIT_FAILURE);
+        exit(1);
 
     } else {
         // Parent process: wait for the child process to terminate
