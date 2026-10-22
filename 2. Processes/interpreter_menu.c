@@ -55,17 +55,17 @@ int main(void) {
         switch (choice) {
             case 1:
                 printf("\nLaunching Python...\n");
-                run_interpreter("/usr/bin/python", "python");
+                run_interpreter("/home/codespace/.python/current/bin/python", "python");
                 break;
 
             case 2:
                 printf("\nLaunching Node.js...\n");
-                run_interpreter("/usr/bin/node", "node");
+                run_interpreter("/home/codespace/nvm/current/bin/node", "node");
                 break;
 
             case 3:
                 printf("\nLaunching Ruby...\n");
-                run_interpreter("/usr/bin/irb", "irb");
+                run_interpreter("/usr/local/rvm/rubies/ruby-3.4.1/bin/irb", "irb");
                 break;
 
             case 4:
@@ -73,7 +73,7 @@ int main(void) {
                 exit(0);
 
             default:
-                printf("Invalid choice. Please choose 1, 2, or 3.\n");
+                printf("Invalid choice. Please choose 1, 2, 3, or 4.\n");
         }
     }
 
