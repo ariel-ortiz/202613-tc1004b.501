@@ -4,14 +4,17 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+#define FOREVER while (1)
+
 // Helper function to handle fork and execl for interpreters
 void run_interpreter(const char *path, const char *arg) {
     pid_t pid = fork();
 
-    if (pid < 0) {
+    if (pid == -1) {
         // Fork failed
         perror("Fork failed");
         return;
+
     } else if (pid == 0) {
         // Child process: replace image with the interpreter using execl
         execl(path, arg, NULL);
@@ -19,10 +22,10 @@ void run_interpreter(const char *path, const char *arg) {
         // If execl returns, it means an error occurred
         perror("execl failed");
         exit(EXIT_FAILURE);
+
     } else {
         // Parent process: wait for the child process to terminate
-        int status;
-        waitpid(pid, &status, 0);
+        wait(NULL);
         printf("\n[Process returned to menu]\n");
     }
 }
@@ -30,7 +33,7 @@ void run_interpreter(const char *path, const char *arg) {
 int main(void) {
     int choice;
 
-    while (1) {
+    FOREVER {
         printf("\n=========================\n");
         printf("       MAIN MENU         \n");
         printf("=========================\n");
@@ -40,13 +43,13 @@ int main(void) {
         printf("4. Exit\n");
         printf("Enter your choice (1-4): ");
 
-        int r;
-        if ((r = scanf("%d", &choice)) != 1) {
-            if (r == EOF) {
+        int scan_result;
+        if ((scan_result = scanf("%d", &choice)) != 1) {
+            if (scan_result == EOF) {
                 printf("Exiting program. Goodbye!\n");
                 exit(0);
             }
-            printf("Invalid input %d. Please enter a number.\n", r);
+            printf("Invalid input %d. Please enter a number.\n", scan_result);
             // Clear the input buffer to prevent infinite loops on bad input
             while (getchar() != '\n');
             continue;
